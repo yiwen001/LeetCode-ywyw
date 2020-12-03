@@ -1,0 +1,16 @@
+class Solution(object):
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        nums.sort(reverse=True)
+        #nums=nums[::-1]
+        big=nums[0]
+        flag=0
+        for i in range (len(nums)):
+            if nums[i]<=big:
+                flag=flag+1
+            if flag==k:
+                return nums[i]
