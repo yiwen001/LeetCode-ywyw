@@ -1,0 +1,24 @@
+class Solution(object):
+    def restoreIpAddresses(self, s):
+        #0只能单独出现，或者跟在别的数字后面
+        #用'.',分成四个部分
+        #分出来的数字不能超过255
+        n = len(s)
+        res = []
+		# 判读是否满足ip的条件
+        def helper(tmp):
+            if not tmp or (tmp[0] == "0" and len(tmp) >1) or int(tmp) > 255:
+                return False
+            return True
+		# 三个循环,把数字分成四份
+        for i in range(3):
+            for j in range(i + 1, i + 4):
+                for k in range(j + 1, j + 4):
+                    if i < n and j < n and k < n:
+                        tmp1 = s[:i + 1]
+                        tmp2 = s[i + 1:j + 1]
+                        tmp3 = s[j + 1:k + 1]
+                        tmp4 = s[k + 1:]
+                        if all(map(helper, [tmp1, tmp2, tmp3, tmp4])):#把这些tmp返回helper看是否满足条件
+                            res.append(tmp1 + "." + tmp2 + "." + tmp3 + "." + tmp4)
+        return res
